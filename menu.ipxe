@@ -1,0 +1,58 @@
+#!ipxe
+
+# Some menu defaults
+set menu-timeout 5000
+set submenu-timeout ${menu-timeout}
+ 
+:start
+menu iPXE boot menu
+item --gap -- ------------------------- Operating systems ------------------------------
+item testing Install debian testing
+item --gap -- ------------------------- Tools and utilities ----------------------------
+item --key p pxelinux Load PXELinux menu
+item shell Drop to iPXE shell
+item reboot Reboot computer
+item
+item --key x exit Exit iPXE and continue BIOS boot
+choose --timeout ${menu-timeout} --default ${menu-default} selected || goto cancel
+set menu-timeout 0
+goto ${selected}
+ 
+:cancel
+echo You cancelled the menu, dropping you to a shell
+ 
+:shell
+echo Type 'exit' to get the back to the menu
+shell
+set menu-timeout 0
+set submenu-timeout 0
+goto start
+ 
+:failed
+echo Booting failed, dropping to shell
+goto shell
+ 
+:reboot
+reboot
+ 
+:exit
+exit
+ 
+:config
+config
+goto start
+ 
+:back
+set submenu-timeout 0
+clear submenu-default
+goto start
+ 
+############ MAIN MENU ITEMS ############
+ 
+:testing
+echo Starting Debian Testing install...
+kernel http://ftp.de.debian.org/debian/dists/testing/main/installer-amd64/current/images/netboot/debian-installer/amd64/linux
+initrd http://ftp.de.debian.org/debian/dists/testing/main/installer-amd64/current/images/netboot/debian-installer/amd64/initrd.gz
+imgargs auto=true vga=normal locale=en_GB console-keymaps-at/keymap=de
+boot || goto failed
+goto start

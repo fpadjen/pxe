@@ -1,0 +1,9 @@
+#!ipxe
+
+# https://gist.github.com/robinsmidsrod/2234639 for documentation
+
+# Global variables used by all other iPXE scripts
+chain boot.ipxe.cfg ||
+
+# Boot <boot-url>/menu.ipxe script if all other options have been exhausted
+chain ${menu-url} ||

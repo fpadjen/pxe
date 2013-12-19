@@ -1,0 +1,70 @@
+#!ipxe
+
+DEFAULT vesamenu.c32
+PROMPT 0
+ONTIMEOUT Local 
+ALLOWOPTIONS 0
+NOESCAPE 1
+TIMEOUT 50
+TOTALTIMEOUT 9000
+
+MENU TITLE  PXE Server 
+MENU BACKGROUND pxelinux.cfg/logo.jpg
+NOESCAPE 1
+ALLOWOPTIONS 1
+PROMPT 0
+menu width 80
+menu rows 14
+MENU TABMSGROW 24
+MENU MARGIN 10
+menu color border               30;44      #ffffffff #00000000 std
+
+LABEL Local
+        localboot 0
+        TEXT HELP
+        Boot from local disk
+        ENDTEXT
+
+MENU BEGIN Disktools
+MENU TITLE Tools
+        LABEL Gparted
+        KERNEL http://192.168.0.5/pxe/gparted/vmlinuz
+        INITRD http://192.168.0.5/pxe/gparted/initrd.img
+        APPEND boot=live config union=aufs noswap noprompt vga=788 fetch=http://192.168.0.5/pxe/gparted/filesystem.squashfs
+MENU END
+
+MENU BEGIN OS Installer
+MENU TITLE OS Installer
+        LABEL Debian headless amd64
+        KERNEL http://ftp.de.debian.org/debian/dists/stable/main/installer-amd64/current/images/netboot/debian-installer/amd64/linux
+        INITRD http://ftp.de.debian.org/debian/dists/stable/main/installer-amd64/current/images/netboot/debian-installer/amd64/initrd.gz
+        APPEND auto=true vga=normal file=http://192.168.0.5/pxe/preseed/headless locale=en_GB console-keymaps-at/keymap=de
+
+        LABEL Debian stable amd64
+        KERNEL http://ftp.de.debian.org/debian/dists/stable/main/installer-amd64/current/images/netboot/debian-installer/amd64/linux
+        INITRD http://ftp.de.debian.org/debian/dists/stable/main/installer-amd64/current/images/netboot/debian-installer/amd64/initrd.gz
+
+        LABEL Debian testing amd64
+        KERNEL http://ftp.de.debian.org/debian/dists/testing/main/installer-amd64/current/images/netboot/debian-installer/amd64/linux
+        INITRD http://ftp.de.debian.org/debian/dists/testing/main/installer-amd64/current/images/netboot/debian-installer/amd64/initrd.gz
+
+        LABEL Debian unstable amd64
+        KERNEL http://ftp.de.debian.org/debian/dists/unstable/main/installer-amd64/current/images/netboot/debian-installer/amd64/linux
+        INITRD http://ftp.de.debian.org/debian/dists/unstable/main/installer-amd64/current/images/netboot/debian-installer/amd64/initrd.gz
+
+        LABEL Fedora 16 amd64
+        KERNEL http://download.fedoraproject.org/pub/fedora/linux/releases/16/Fedora/x86_64/os/images/pxeboot/vmlinuz
+        INITRD http://download.fedoraproject.org/pub/fedora/linux/releases/16/Fedora/x86_64/os/images/pxeboot/initrd.img
+
+        LABEL Ubuntu Precise amd64
+        KERNEL http://archive.ubuntu.com/ubuntu/dists/precise/main/installer-amd64/current/images/netboot/ubuntu-installer/amd64/linux
+        INITRD http://archive.ubuntu.com/ubuntu/dists/precise/main/installer-amd64/current/images/netboot/ubuntu-installer/amd64/initrd.gz
+
+        LABEL Archlinux amd64
+        KERNEL http://mirrors.us.kernel.org/archlinux/iso/archboot/latest/boot/vm64
+        INITRD http://mirrors.us.kernel.org/archlinux/iso/archboot/latest/boot/initrd64.img
+
+        LABEL Archlinux amd64 lts
+        KERNEL http://mirrors.us.kernel.org/archlinux/iso/archboot/latest/boot/vm64lts
+        INITRD http://mirrors.us.kernel.org/archlinux/iso/archboot/latest/boot/initrd64.img
+MENU END

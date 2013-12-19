@@ -1,0 +1,9 @@
+d-i debian-installer/locale select en_GB
+d-i console-keymaps-at/keymap select de
+d-i netcfg/choose_interface select auto
+d-i netcfg/get_hostname string newinstall
+d-i netcfg/get_domain string lab6.org
+d-i netcfg/wireless_wep string
+d-i preseed/early_command string anna-install network-console
+d-i network-console/password password install
+d-i network-console/password-again password install
