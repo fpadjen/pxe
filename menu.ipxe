@@ -49,7 +49,7 @@ goto start
  
 ############ MAIN MENU ITEMS ############
  
-:testing
+:debian
 echo Starting Debian install...
 kernel http://ftp.de.debian.org/debian/dists/stable/main/installer-amd64/current/images/netboot/debian-installer/amd64/linux
 initrd http://ftp.de.debian.org/debian/dists/stable/main/installer-amd64/current/images/netboot/debian-installer/amd64/initrd.gz
