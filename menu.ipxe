@@ -8,6 +8,7 @@ set submenu-timeout ${menu-timeout}
 menu iPXE boot menu
 item --gap -- ------------------------- Operating systems ------------------------------
 item debian Install Debian
+item saucy Install Ubuntu Saucy 13.10
 item --gap -- ------------------------- Tools and utilities ----------------------------
 item --key p pxelinux Load PXELinux menu
 item shell Drop to iPXE shell
@@ -54,5 +55,12 @@ echo Starting Debian install...
 kernel http://ftp.de.debian.org/debian/dists/stable/main/installer-amd64/current/images/netboot/debian-installer/amd64/linux
 initrd http://ftp.de.debian.org/debian/dists/stable/main/installer-amd64/current/images/netboot/debian-installer/amd64/initrd.gz
 imgargs linux auto=true vga=normal locale=en_GB console-keymaps-at/keymap=de
+boot || goto failed
+goto start
+ 
+:saucy
+echo Starting Ubuntu Saucy install...
+kernel http://archive.ubuntu.com/ubuntu/dists/precise/main/installer-amd64/current/images/netboot/ubuntu-installer/amd64/linux
+initrd http://archive.ubuntu.com/ubuntu/dists/precise/main/installer-amd64/current/images/netboot/ubuntu-installer/amd64/initrd.gz
 boot || goto failed
 goto start
