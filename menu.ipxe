@@ -7,7 +7,7 @@ set submenu-timeout ${menu-timeout}
 :start
 menu iPXE boot menu
 item --gap -- ------------------------- Operating systems ------------------------------
-item testing Install debian testing
+item debian Install Debian
 item --gap -- ------------------------- Tools and utilities ----------------------------
 item --key p pxelinux Load PXELinux menu
 item shell Drop to iPXE shell
@@ -50,9 +50,9 @@ goto start
 ############ MAIN MENU ITEMS ############
  
 :testing
-echo Starting Debian Testing install...
-kernel http://ftp.de.debian.org/debian/dists/testing/main/installer-amd64/current/images/netboot/debian-installer/amd64/linux
-initrd http://ftp.de.debian.org/debian/dists/testing/main/installer-amd64/current/images/netboot/debian-installer/amd64/initrd.gz
-imgargs auto=true vga=normal locale=en_GB console-keymaps-at/keymap=de
+echo Starting Debian install...
+kernel http://ftp.de.debian.org/debian/dists/stable/main/installer-amd64/current/images/netboot/debian-installer/amd64/linux
+initrd http://ftp.de.debian.org/debian/dists/stable/main/installer-amd64/current/images/netboot/debian-installer/amd64/initrd.gz
+imgargs linux auto=true vga=normal locale=en_GB console-keymaps-at/keymap=de
 boot || goto failed
 goto start
